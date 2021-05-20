@@ -1,32 +1,33 @@
 import { BehaviorSubject } from "rxjs";
 
 export class Links{
+    id:number;
     titulo: string;
     link: string;
-    meGusta: number;
-    noMeGusta: number;
+    likes: number;
+    dislikes: number;
     meGustaObservable: BehaviorSubject<any>; 
     noMeGustaObservable: BehaviorSubject<any>; 
     
     constructor(titulo: string, link: string, meGusta?: number, noMeGusta?: number){
         this.titulo = titulo;
         this.link = link;
-        this.meGusta = meGusta || 0;
-        this.noMeGusta = noMeGusta || 0;
+        this.likes = meGusta || 0;
+        this.dislikes = noMeGusta || 0;
 
-        this.meGustaObservable = new BehaviorSubject<any>(this.meGusta);
-        this.meGustaObservable.asObservable().subscribe(result => this.meGusta = result)
+        this.meGustaObservable = new BehaviorSubject<any>(this.likes);
+        this.meGustaObservable.asObservable().subscribe(result => this.likes = result)
 
-        this.noMeGustaObservable = new BehaviorSubject<any>(this.noMeGusta);
-        this.noMeGustaObservable.asObservable().subscribe(result => this.noMeGusta = result)
+        this.noMeGustaObservable = new BehaviorSubject<any>(this.dislikes);
+        this.noMeGustaObservable.asObservable().subscribe(result => this.dislikes = result)
     }
 
     votoUp(){
-        this.meGusta++;
-        this.meGustaObservable.next(this.meGusta);
+        this.likes++;
+        this.meGustaObservable.next(this.likes);
     }
     votoDown(){
-        this.noMeGusta++;
-        this.noMeGustaObservable.next(this.noMeGusta);
+        this.dislikes++;
+        this.noMeGustaObservable.next(this.dislikes);
     }
 }
